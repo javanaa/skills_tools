@@ -17,14 +17,14 @@
 | :---: | :--- | :--- | :---: |
 | 🧠 | **[five-brain-council](five-brain-council/)** | 五人智囊天团：证据驱动的科研批判性评审（选题 / 仿真 / PINN / 超材料 / 论文审查 / 模拟答辩） | ![Ready](https://img.shields.io/badge/Ready-%E2%9C%93-success?style=flat-square) |
 | 🛠️ | **[cst-studio-automation-suite](cst-studio-automation-suite/)** | CST 自动化全栈整合包（合并版）— 官方 Python API 脚本 / VBA 宏 / MCP Server 选型 + 7 仓库对照吸收，含 5 个可运行脚本、17 份参考文档、3 个材料数据库，基于 W1 实战验证（CST 2025） | ![Ready](https://img.shields.io/badge/Ready-suite-success?style=flat-square) |
-| 🛠️ | **[cst-studio-automation-v3](cst-studio-automation-v3/)** | CST 自动化全栈工具集 v3.1（旧版，已被 suite 合并） | ![Legacy](https://img.shields.io/badge/Legacy-v3.1-lightgrey?style=flat-square) |
-| 📚 | **[cst-studio-automation](cst-studio-automation/)** | CST 自动化工具集 v1（旧版，文档版无代码，已被 suite 合并） | ![Legacy](https://img.shields.io/badge/Legacy-v1-lightgrey?style=flat-square) |
+| 🛠️ | cst-studio-automation-v3 | CST 自动化全栈工具集 v3.1（Legacy，已合并进 suite；经 git tag `v3.0-cst-automation` 获取） | ![Legacy](https://img.shields.io/badge/Legacy-v3.1-lightgrey?style=flat-square) |
+| 📚 | cst-studio-automation | CST 自动化工具集 v1（Legacy，文档版无代码；经 git tag `v1.0-cst-automation` 获取） | ![Legacy](https://img.shields.io/badge/Legacy-v1-lightgrey?style=flat-square) |
 
 </div>
 
 > 💡 每个 skill 的**详细触发条件、使用方法、参考文档**见对应目录下的 `SKILL.md`。
 >
-> ⚡ **推荐使用 `cst-studio-automation-suite`**：v3.1 与 v1 的整合合并版，含实测可运行脚本、CST 2025 API 速查、17 份参考文档与 7 仓库对照吸收经验库（`cross-repo-lessons.md`）。v3.1 / v1 仅保留作历史参考。
+> ⚡ **推荐使用 `cst-studio-automation-suite`**：v3.1 与 v1 的整合合并版，含实测可运行脚本、CST 2025 API 速查、17 份参考文档与 7 仓库对照吸收经验库（`cross-repo-lessons.md`）。旧版 v3.1 / v1 **不在 main 分支**，历史版本通过 git tags 获取（`v3.0-cst-automation` / `v1.0-cst-automation`）。
 
 ## 📦 Installation · 安装
 
@@ -50,12 +50,7 @@ workspace/.user_skills/
 │   ├── scripts/    (5 个可运行 Python 脚本)
 │   ├── references/ (17 份参考文档，含 cross-repo-lessons.md)
 │   └── data/       (3 个材料数据库 JSON)
-├── cst-studio-automation-v3/        # CST 自动化 v3.1（旧版，Legacy）
-│   ├── SKILL.md
-│   └── ...
-└── cst-studio-automation/           # CST 自动化 v1（旧版，Legacy）
-    ├── SKILL.md
-    └── references/
+└── (旧版 v3.1 / v1 不在 main，通过 git tag 获取：`v3.0-cst-automation` / `v1.0-cst-automation`)
 ```
 
 **CST suite 脚本运行要求**：必须使用 CST 自带 Python（如 `<CST安装目录>\AMD64\python\python.bat`），系统 Python 无法 `import cst`。详见 `cst-studio-automation-suite/SKILL.md` 的快速开始。
