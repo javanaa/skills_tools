@@ -65,6 +65,13 @@ P0 查本机 Help → P1 需求转结构化参数清单 → P2 公式/参数扫�
 - `references/mcp-servers-comparison.md` — 4 个 MCP Server 功能/安装/兼容性对比
 - `references/py4cst-guide.md` — py4cst 安装与批量仿真示例
 - `references/session-management.md` — COM 会话管理详解（锁/自愈/看门狗）
+- `references/cst2025-api-cheatsheet.md` — CST 2025 API 速查表（含场监视器正确写法）
+- `references/cross-repo-lessons.md` — 7 仓库对照吸收：建模/求解器/端口/导出/进程纪律 + 17 坑要点
+- `references/troubleshooting.md` — 故障排查（按报错分类：建模/网格/求解器/导出/命令行/物理结果异常）
+- `references/floquet-port-guide.md` — Floquet 端口完整指南（边界配合/常见错误/斜入射扩展）
+- `references/vba-macro-best-practices.md` — VBA 宏最佳实践（W1 三轮修复记录/材料自建/不自动求解）
+- `references/common-pitfalls.md` — CST 通用避坑清单（来自 valenZW/cst-sim-agent）
+- `references/simulation-handbook.md` — CST 仿真经验手册（35 官方案例提炼，吸波体/FSS 速查）
 - `scripts/` — 5 个 CST 2025 实测脚本（会话/建模/求解导出/S11 解析/批量扫描），已参数化
 - `data/` — 3 个材料库 JSON（基板/金属/介质）
 - `ATTRIBUTION.md` — 逐文件来源与改动、许可声明
