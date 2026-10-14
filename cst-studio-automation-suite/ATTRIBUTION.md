@@ -12,7 +12,9 @@
 | scripts/batch_sweep.py | 同上 | L22-23 同上 |
 | scripts/parse_s11.py | 同上 | L13 同上 |
 | data/substrates.json / common_metals.json / common_dielectrics.json | 同上 | 原样 |
-| references/cst2025-api-cheatsheet.md | 同上 | 原样 |
+| references/cst2025-api-cheatsheet.md | 同上 | 原样；2026-10-14 增补 §14 场监视器正确写法（来自 valenZW/Neil2DP） |
+| references/common-pitfalls.md | valenZW/cst-sim-agent（Apache-2.0） | 通用避坑清单 A-I 提炼；标注 vba_syntax/ 属外挂资源 |
+| references/simulation-handbook.md | valenZW/cst-sim-agent（Apache-2.0） | 35 官方案例提炼的仿真经验手册（边界/求解器/网格/端口速查） |
 | references/cross-repo-lessons.md | 同上 | 原样 |
 | references/floquet-port-guide.md | 同上 | 原样 |
 | references/troubleshooting.md | 同上 | 原样 |
