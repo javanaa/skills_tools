@@ -274,3 +274,94 @@ while m3d.is_solver_running():
 | output.txt | `<project_dir>\Result\output.txt` | 求解过程详细输出 |
 | meshrelated.info | `<project_dir>\Result\` | 几何实体统计、端口数 |
 | MeshErrorsGraphicalFeedback | `<project_dir>\Result\` | 网格错误 |
+
+---
+
+## 14. 场监视器（Field Monitor）✅ 已验证
+
+> 参考：valenZW/cst-sim-agent + Neil2DP/cst-paper-sim-skills 官方语法
+
+### 正确写法（不要加 .Domain 和 .Dimension！）
+
+```vba
+' ✅ E-field @ 17.58 GHz
+With Monitor
+    .Reset
+    .Name "e-field (f=17.58)"
+    .FieldType "Efield"
+    .Frequency "17.58"
+    .Create
+End With
+
+' ✅ H-field @ 17.58 GHz（Hfield结果同时含表面电流）
+With Monitor
+    .Reset
+    .Name "h-field (f=17.58)"
+    .FieldType "Hfield"
+    .Frequency "17.58"
+    .Create
+End With
+
+' ✅ Loss density @ 17.58 GHz
+With Monitor
+    .Reset
+    .Name "loss (f=17.58)"
+    .FieldType "Lossdens"
+    .Frequency "17.58"
+    .Create
+End With
+```
+
+### 合法 FieldType 值（大小写严格）
+
+| FieldType | 出什么图 | 备注 |
+|-----------|---------|------|
+| `Efield` | 电场 3D 分布、2D 切面 | 击穿热点分析 |
+| `Hfield` | 磁场 + **金属表面电流分布** | ⚠️ 没有单独的 SurfaceCurrent 类型，看电流用 Hfield |
+| `Lossdens` | 损耗密度分布 | EW/FCI 层损耗分析 |
+| `Powerflow` | 坡印廷矢量 | 功率流向 |
+| `Farfield` | 远场方向图 | 天线/散射 |
+| `Eenergy` | 电场能量 | |
+| `Henergy` | 磁场能量 | |
+
+### ❌ 常见错误
+
+```vba
+' ❌ 不要加 .Domain！加了会静默失败（add_to_history 返回 True 但实际没创建）
+With Monitor
+    .Domain "Frequency"    ' ← 这行删掉！
+    .Dimension "Volume"    ' ← 这行也删掉！
+    .FieldType "Efield"
+    ...
+End With
+
+' ❌ 不要用这些名称
+"E Field"      ' 正确：Efield
+"H Field"      ' 正确：Hfield
+"Surface Current" ' 正确：Hfield（没有单独的 SurfaceCurrent）
+"Loss Density"   ' 正确：Lossdens
+```
+
+### Python 调用示例
+
+```python
+m3d.add_to_history("mon_E_17p58", '''
+With Monitor
+    .Reset
+    .Name "e-field (f=17.58)"
+    .FieldType "Efield"
+    .Frequency "17.58"
+    .Create
+End With
+''')
+```
+
+### 验证方法
+
+加完后：
+1. `m3d.full_history_rebuild()`
+2. 跑求解器 `FDSolver.Start`
+3. 求解完成后，左侧导航树 → **Field Monitors** 下面应该有内容
+4. **2D/3D Results** 下面应该有 e-field / h-field / loss 结果
+
+如果 Field Monitors 下面是空的 → 命令静默失败了，检查是不是多写了 .Domain 或 .Dimension。
