@@ -28,6 +28,8 @@ description: CST Studio Suite（达索 SIMULIA 电磁仿真软件）自动化助
 | 单结构建模+求解，要稳 | VBA 宏注入（`add_to_history`），Python 只管会话 |
 | 数百~数千样本批量出数据集 | `scripts/batch_sweep.py`（断点续跑+指纹守卫） |
 | 只做会话连接/自愈/超时 | `scripts/cst_session.py`（COM 单例+文件锁+看门狗） |
+| 开工前环境自检（CST/MCP/路径是否就绪） | `scripts/validate_environment.py`（输出 JSON 健康报告，纯 stdlib 可跑） |
+| 生成"待审查"Python 任务脚手架（不直接跑 CST） | `scripts/generate_job.py`（输出 .py + manifest，标记 generated_not_executed） |
 | 问操作/查参数含义、要引用出处 | 检索本机 `CST\Documentation` 的 Help（离线，不出本机） |
 | 2026 + 想要对话式控制 | MCP（先过版本关，见 `references/mcp-onboarding-checklist.md`） |
 | 有 MATLAB 授权 | 走 MATLAB→COM 通道（本包不主用） |
@@ -72,7 +74,7 @@ P0 查本机 Help → P1 需求转结构化参数清单 → P2 公式/参数扫�
 - `references/vba-macro-best-practices.md` — VBA 宏最佳实践（W1 三轮修复记录/材料自建/不自动求解）
 - `references/common-pitfalls.md` — CST 通用避坑清单（来自 valenZW/cst-sim-agent）
 - `references/simulation-handbook.md` — CST 仿真经验手册（35 官方案例提炼，吸波体/FSS 速查）
-- `scripts/` — 5 个 CST 2025 实测脚本（会话/建模/求解导出/S11 解析/批量扫描），已参数化
+- `scripts/` — 7 个脚本：5 个 CST 2025 实测（会话/建模/求解导出/S11 解析/批量扫描，已参数化）+ `validate_environment.py`（环境健康自检）+ `generate_job.py`（待审查脚手架生成器）
 - `data/` — 3 个材料库 JSON（基板/金属/介质）
 - `ATTRIBUTION.md` — 逐文件来源与改动、许可声明
 
