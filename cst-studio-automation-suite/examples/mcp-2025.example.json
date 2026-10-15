@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "cst2025-local": {
+      "command": "C:\\Python312\\python.exe",
+      "args": [
+        "C:\\agent-skills\\cst-studio-automation-suite-v2\\mcp_server_2025.py"
+      ],
+      "cwd": "C:\\agent-skills\\cst-studio-automation-suite-v2",
+      "env": {
+        "CST_HOME": "C:\\Program Files\\CST Studio Suite 2025",
+        "CST_WORK_DIR": "C:\\cst_work",
+        "CST_PYTHON_EXE": "C:\\Program Files\\CST Studio Suite 2025\\AMD64\\python\\python.bat"
+      }
+    }
+  }
+}
