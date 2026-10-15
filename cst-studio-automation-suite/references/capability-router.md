@@ -19,6 +19,7 @@
 | 参数扫描断点续跑（指纹守卫） | ≥500 样本批量 | 2025 | 🟢 | scripts/batch_sweep.py |
 | 环境健康自检（CST/MCP/路径就绪 JSON 报告） | 开工前/接 MCP 前 | 通用（纯 stdlib） | 🟢 | scripts/validate_environment.py |
 | 待审查 Python 任务脚手架生成（不直接跑 CST） | 生成可审查任务脚本/清单 | 通用 | 🟢 | scripts/generate_job.py |
+| 本地 MCP 桥接器（4 白名单工具：health/generate_job/analyze_s1p/run_unitcell） | 2025 对话式执行层（MCP host 已装 mcp 包） | 2025 | 🟡（依赖 mcp 包+审批口令，装完转🟢） | mcp_server_2025.py + scripts/cst2025_bridge.py，用法见 references/v2-execution.md |
 | CSTRunner 通用执行器+场监视器一键套件 | 需要远场/E/H/坡印廷全套监视器 | 2025 | 🟡 | Neil2DP cst-em-sim（scripts/cst_runner.py），本包只内联了规范（workflow §4-§5），执行器本体在原仓库 |
 | STEP/IGES/CAD 导入流程 | 外部 CAD 进 CST | 2025，须走 add_to_history（坑7） | 🟡 | 同上 step-import-guide |
 | 远场/3D 场点云无头导出 | quiet 模式要方向图/场图 | 2025，坑 13/14/17 路线 | 🟢 | workflow §5（路线全文已内联）|
