@@ -31,7 +31,13 @@
 | references/mcp-onboarding-checklist.md | 本次整合新写 | valenZW/jame-ri 命令已核对；ismailakdag 标待复核；2026-10-15 并入 woson-L/cst-studio-suite-mcp 专项（来自 cst-automation 技能包，上游 woson-L，CST 2026 stdio MCP） |
 | scripts/validate_environment.py | cst-automation 技能包（2026-10-15 并入） | 原样（纯 stdlib 环境健康检查，上游指向 woson-L/cst-studio-suite-mcp） |
 | scripts/generate_job.py | cst-automation 技能包（2026-10-15 并入） | 原样（生成待审查 Python 脚手架 + manifest） |
-| SKILL.md | 本次整合新写 | 四步路径为全部来源结论的压缩；2026-10-15 资源地图补 2 脚本行 |
+| scripts/cst2025_bridge.py | 2.0 版新增（2026-10-15 并入） | 原样（窄接口本地桥接器核心：健康/脚手架/S1P 分析/经审批单元胞执行；stdlib only） |
+| mcp_server_2025.py | 2.0 版新增（2026-10-15 并入） | 原样（FastMCP stdio 服务器，注册 cst2025_health/generate_job/analyze_s1p/run_unitcell，需 mcp 包） |
+| references/v2-execution.md | 2.0 版新增（2026-10-15 并入） | 原样（2.0 执行层：Windows 安装/环境变量/审批口令/范围与注意事项） |
+| tests/test_bridge.py | 2.0 版新增（2026-10-15 并入） | 原样（7 个离线单元测试，本机已跑通） |
+| examples/mcp-2025.example.json | 2.0 版新增（2026-10-15 并入） | 原样（MCP host 配置示例，路径为占位需按本机改） |
+| README-2.0.md / agents/openai.yaml | 2.0 版新增（2026-10-15 并入） | 原样（快速开始 / Agent 元数据） |
+| SKILL.md | 本次整合新写 | 四步路径为全部来源结论的压缩；2026-10-15 并入 2.0 MCP 执行层章节 + 资源地图补全至 38 文件 |
 
 ## 未纳入内容（有意排除）
 - javanaa v1（cst-studio-automation）：2 份文档与 v3 md5 相同、2 份近似分叉，且 description 抢触发（见 conflict-register C6）。
