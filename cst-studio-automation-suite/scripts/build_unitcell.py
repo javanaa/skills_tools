@@ -83,17 +83,14 @@ With Units
 End With
 """)
     m3d.add_to_history("set_freq", f"""
-With Frequency
-  .SetFmin "{PARAMS['fmin']}"
-  .SetFmax "{PARAMS['fmax']}"
-End With
+Solver.FrequencyRange "{PARAMS['fmin']}", "{PARAMS['fmax']}"
 """)
 
-    print("[4/7] 构建几何（双环嵌套开口方环）...")
-    _build_geometry(m3d)
-
-    print("[5/7] 定义材料...")
+    print("[4/7] 定义材料...")
     _define_materials(m3d)
+
+    print("[5/7] 构建几何（双环嵌套开口方环）...")
+    _build_geometry(m3d)
 
     print("[6/7] 设置边界/端口/网格/求解器...")
     _setup_boundaries(m3d)
@@ -130,7 +127,9 @@ With Brick
   .Name "substrate"
   .Component "component1"
   .Material "RO4003C"
-  .Range "{-half}", "{half}", "{-half}", "{half}", "0", "{h}"
+  .Xrange "{-half}", "{half}"
+  .Yrange "{-half}", "{half}"
+  .Zrange "0", "{h}"
   .Create
 End With
 """)
@@ -141,7 +140,9 @@ With Brick
   .Name "backplate"
   .Component "component1"
   .Material "Copper (annealed)"
-  .Range "{-half}", "{half}", "{-half}", "{half}", "{-tcu}", "0"
+  .Xrange "{-half}", "{half}"
+  .Yrange "{-half}", "{half}"
+  .Zrange "{-tcu}", "0"
   .Create
 End With
 """)
@@ -152,7 +153,9 @@ With Brick
   .Name "o_outer"
   .Component "metamaterial"
   .Material "Copper (annealed)"
-  .Range "{-L1/2}", "{L1/2}", "{-L1/2}", "{L1/2}", "{h}", "{h+tcu}"
+  .Xrange "{-L1/2}", "{L1/2}"
+  .Yrange "{-L1/2}", "{L1/2}"
+  .Zrange "{h}", "{h+tcu}"
   .Create
 End With
 """)
@@ -162,7 +165,9 @@ With Brick
   .Name "o_inner"
   .Component "tool"
   .Material "PEC"
-  .Range "{-(L1/2-w1)}", "{(L1/2-w1)}", "{-(L1/2-w1)}", "{(L1/2-w1)}", "{h-0.01}", "{h+tcu+0.01}"
+  .Xrange "{-(L1/2-w1)}", "{(L1/2-w1)}"
+  .Yrange "{-(L1/2-w1)}", "{(L1/2-w1)}"
+  .Zrange "{h-0.01}", "{h+tcu+0.01}"
   .Create
 End With
 """)
@@ -172,7 +177,9 @@ With Brick
   .Name "o_gap"
   .Component "tool"
   .Material "PEC"
-  .Range "{-g1/2}", "{g1/2}", "{(L1/2-w1)}", "{L1/2}", "{h-0.01}", "{h+tcu+0.01}"
+  .Xrange "{-g1/2}", "{g1/2}"
+  .Yrange "{(L1/2-w1)}", "{L1/2}"
+  .Zrange "{h-0.01}", "{h+tcu+0.01}"
   .Create
 End With
 """)
@@ -181,7 +188,7 @@ End With
     m3d.add_to_history("outer_ring_subtract2",
         'Solid.Subtract "metamaterial:o_outer", "tool:o_gap"')
     m3d.add_to_history("rename_outer",
-        'With Solid .Name "metamaterial:o_outer", "outer_ring" End With')
+        'Solid.Rename "metamaterial:o_outer", "outer_ring"')
 
     m3d.add_to_history("inner_ring_outer", f"""
 With Brick
@@ -189,7 +196,9 @@ With Brick
   .Name "i_outer"
   .Component "metamaterial"
   .Material "Copper (annealed)"
-  .Range "{-L2/2}", "{L2/2}", "{-L2/2}", "{L2/2}", "{h}", "{h+tcu}"
+  .Xrange "{-L2/2}", "{L2/2}"
+  .Yrange "{-L2/2}", "{L2/2}"
+  .Zrange "{h}", "{h+tcu}"
   .Create
 End With
 """)
@@ -199,7 +208,9 @@ With Brick
   .Name "i_inner"
   .Component "tool"
   .Material "PEC"
-  .Range "{-(L2/2-w2)}", "{(L2/2-w2)}", "{-(L2/2-w2)}", "{(L2/2-w2)}", "{h-0.01}", "{h+tcu+0.01}"
+  .Xrange "{-(L2/2-w2)}", "{(L2/2-w2)}"
+  .Yrange "{-(L2/2-w2)}", "{(L2/2-w2)}"
+  .Zrange "{h-0.01}", "{h+tcu+0.01}"
   .Create
 End With
 """)
@@ -209,7 +220,9 @@ With Brick
   .Name "i_gap"
   .Component "tool"
   .Material "PEC"
-  .Range "{-g2/2}", "{g2/2}", "{(L2/2-w2)}", "{L2/2}", "{h-0.01}", "{h+tcu+0.01}"
+  .Xrange "{-g2/2}", "{g2/2}"
+  .Yrange "{(L2/2-w2)}", "{L2/2}"
+  .Zrange "{h-0.01}", "{h+tcu+0.01}"
   .Create
 End With
 """)
@@ -218,10 +231,7 @@ End With
     m3d.add_to_history("inner_ring_subtract2",
         'Solid.Subtract "metamaterial:i_outer", "tool:i_gap"')
     m3d.add_to_history("rename_inner",
-        'With Solid .Name "metamaterial:i_outer", "inner_ring" End With')
-
-    m3d.add_to_history("delete_tools",
-        'With Solid .Delete "tool:o_inner" .Delete "tool:o_gap" .Delete "tool:i_inner" .Delete "tool:i_gap" End With')
+        'Solid.Rename "metamaterial:i_outer", "inner_ring"')
 
 
 # ------------------------------------------------------------------
@@ -230,7 +240,6 @@ def _define_materials(m3d):
 With Material
   .Reset
   .Name "RO4003C"
-  .FrqType "Frequency independent"
   .Type "Normal"
   .Epsilon "{PARAMS['substrate_epsr']}"
   .TanD "{PARAMS['substrate_tand']}"
@@ -251,12 +260,6 @@ With Boundary
   .Ymax "unit cell"
   .Zmin "electric"
   .Zmax "expanded open"
-  .XminSpace "0.0"
-  .XmaxSpace "0.0"
-  .YminSpace "0.0"
-  .YmaxSpace "0.0"
-  .ZminSpace "0.0"
-  .ZmaxSpace "0.0"
 End With
 """)
 
