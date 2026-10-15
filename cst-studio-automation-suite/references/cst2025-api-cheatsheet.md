@@ -96,6 +96,8 @@ With Material
     .Create
 End With
 ' Copper 为内置材料，直接 .Material "Copper" 引用
+' ⚠️ .FrqType 合法值只有 "All"/"Hf"/"Static"/"Particle"（"Frequency independent" 非法，2026-10-15 真机验证报错）
+'    不写 .FrqType 时材料默认为频率无关，与 Epsilon/TanD 搭配即为常用基板写法
 ```
 
 ---
@@ -130,8 +132,11 @@ End With
 ' ✅ 布尔减（单冒号！）
 Solid.Subtract "metamaterial:o_solid", "tool:o_hole"
 
+' ⚠️ Solid.Subtract 默认自动删除工具实体（2026-10-15 真机验证）——挖空后不要再 Solid.Delete 工具，否则报 "Shape does not exist"。
+
 ' ✅ 重命名
 Solid.Rename "metamaterial:o_solid", "ring_outer"
+' ❌ 不要用 With Solid .Name "..." End With（Method or property not found）
 
 # ✅ 全部几何/物理命令追加进历史后，必须一次性全历史重建（Neil2DP 实测硬规则）：
 #    model3d 对象只有 Get 查询方法没有 Create——创建一律走 add_to_history + full_history_rebuild
@@ -160,6 +165,7 @@ With Boundary
     .ZPeriodicShift "0"
 End With
 ' ❌ Boundary.Reset 不存在
+' ❌ Boundary 下没有 .XminSpace/.YminSpace/.ZminSpace 等（那是 Background 的属性；2026-10-15 真机验证 .XminSpace 报 no such property）
 ```
 
 ---
