@@ -17,6 +17,8 @@
 | 频域四面体求解+Touchstone 导出 | 单样本跑通 | 2025 | 🟢 | scripts/run_simulation.py |
 | S11 解析+吸收率统计 | 出数据后 | 通用 | 🟢 | scripts/parse_s11.py |
 | 参数扫描断点续跑（指纹守卫） | ≥500 样本批量 | 2025 | 🟢 | scripts/batch_sweep.py |
+| 环境健康自检（CST/MCP/路径就绪 JSON 报告） | 开工前/接 MCP 前 | 通用（纯 stdlib） | 🟢 | scripts/validate_environment.py |
+| 待审查 Python 任务脚手架生成（不直接跑 CST） | 生成可审查任务脚本/清单 | 通用 | 🟢 | scripts/generate_job.py |
 | CSTRunner 通用执行器+场监视器一键套件 | 需要远场/E/H/坡印廷全套监视器 | 2025 | 🟡 | Neil2DP cst-em-sim（scripts/cst_runner.py），本包只内联了规范（workflow §4-§5），执行器本体在原仓库 |
 | STEP/IGES/CAD 导入流程 | 外部 CAD 进 CST | 2025，须走 add_to_history（坑7） | 🟡 | 同上 step-import-guide |
 | 远场/3D 场点云无头导出 | quiet 模式要方向图/场图 | 2025，坑 13/14/17 路线 | 🟢 | workflow §5（路线全文已内联）|
@@ -53,7 +55,7 @@
 | 条目 | 原因 |
 |---|---|
 | ismailakdag/cst-studio-mcp（180+ 工具，自称 2024–2026） | 安装命令待复核；2025 兼容未实测——接入前先过 mcp-onboarding 第 0 关 |
-| woson-L/cst-studio-suite-mcp、cclyliuyi/mcp-cst-studio、JOEYZYC/cst-studio-mcp-cli、guardianer9-debug orchestrator、AndersOnLin4/cst-mcp | 体量小/无维护/面向 2026；按需再去 |
+| woson-L/cst-studio-suite-mcp（CST 2026 stdio MCP，接入纪律见 mcp-onboarding-checklist 专项）、cclyliuyi/mcp-cst-studio、JOEYZYC/cst-studio-mcp-cli、guardianer9-debug orchestrator、AndersOnLin4/cst-mcp | 体量小/无维护/面向 2026；按需再去 |
 | zhaosih/ChatEM（REST 80+ 工具平台） | 停更约一年 |
 | Albert-tru/AntennaResearchAI- | "控 CST"仍是 TODO，无实现 |
 | renanmav/pycst(47★)、bbl21/cst-runtime-cli(35★)、JustArri/py4cst(23★) | 底层封装库：脚本路线已够用；批量模板需求再说 |
