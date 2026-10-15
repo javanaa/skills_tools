@@ -28,8 +28,10 @@
 | references/cst-2025-api-playbook.md | 本次整合新写 | 合并 javanaa + Neil2DP 实测结论 + xixiheni 最小信息集要求 |
 | references/upstream-ecosystem-snapshot.md | 本次整合新写 | 本地克隆 17 仓库核实；3 处链接勘误 |
 | references/upstream-install-catalog.md | 本次整合新写 | 环境变量名逐字 grep 核实 |
-| references/mcp-onboarding-checklist.md | 本次整合新写 | valenZW/jame-ri 命令已核对；ismailakdag 标待复核 |
-| SKILL.md | 本次整合新写 | 四步路径为全部来源结论的压缩 |
+| references/mcp-onboarding-checklist.md | 本次整合新写 | valenZW/jame-ri 命令已核对；ismailakdag 标待复核；2026-10-15 并入 woson-L/cst-studio-suite-mcp 专项（来自 cst-automation 技能包，上游 woson-L，CST 2026 stdio MCP） |
+| scripts/validate_environment.py | cst-automation 技能包（2026-10-15 并入） | 原样（纯 stdlib 环境健康检查，上游指向 woson-L/cst-studio-suite-mcp） |
+| scripts/generate_job.py | cst-automation 技能包（2026-10-15 并入） | 原样（生成待审查 Python 脚手架 + manifest） |
+| SKILL.md | 本次整合新写 | 四步路径为全部来源结论的压缩；2026-10-15 资源地图补 2 脚本行 |
 
 ## 未纳入内容（有意排除）
 - javanaa v1（cst-studio-automation）：2 份文档与 v3 md5 相同、2 份近似分叉，且 description 抢触发（见 conflict-register C6）。
