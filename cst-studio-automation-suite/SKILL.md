@@ -10,7 +10,7 @@ description: CST Studio Suite（达索 SIMULIA 电磁仿真软件）自动化助
 ## 适用与边界
 
 - 适用：用 Python 脚本、VBA 宏或 MCP 连接本机 CST，做建模 / 频域求解 / 参数扫描 / S 参数导出 / 报错定位。
-- 主战场为 **CST 2025**（本机已装 2025.1）。CST 只能跑在 Windows；本助手只产出代码、宏、排错与批量方案，**不代跑仿真**——执行由用户在本机完成。
+- 主战场为 **CST 2025**（本机已装 2025.1）。CST 只能跑在 Windows；默认只生成可审查代码；在用户明确授权、Windows CST 2025 环境验证通过、MCP Server 已连接时，可通过本地 MCP 适配器执行白名单任务。未经验证时绝不声称已运行。
 - 无把握的 API 名或安装命令，必须标注"待本机 Help/源码确认"，不得臆造。
 
 ## 四步执行路径
@@ -74,11 +74,24 @@ P0 查本机 Help → P1 需求转结构化参数清单 → P2 公式/参数扫�
 - `references/vba-macro-best-practices.md` — VBA 宏最佳实践（W1 三轮修复记录/材料自建/不自动求解）
 - `references/common-pitfalls.md` — CST 通用避坑清单（来自 valenZW/cst-sim-agent）
 - `references/simulation-handbook.md` — CST 仿真经验手册（35 官方案例提炼，吸波体/FSS 速查）
-- `scripts/` — 7 个脚本：5 个 CST 2025 实测（会话/建模/求解导出/S11 解析/批量扫描，已参数化）+ `validate_environment.py`（环境健康自检）+ `generate_job.py`（待审查脚手架生成器）
+- `scripts/` — 8 个脚本：5 个 CST 2025 实测（会话/建模/求解导出/S11 解析/批量扫描，已参数化）+ `validate_environment.py`（环境健康自检）+ `generate_job.py`（待审查脚手架生成器）+ `cst2025_bridge.py`（本地 MCP 桥接器核心，纯 stdlib）
+- `mcp_server_2025.py` — 本地 stdio MCP 服务器（FastMCP，4 白名单工具，需 `mcp` Python 包）
+- `references/v2-execution.md` — 2.0 MCP 执行层：Windows 安装/环境变量/审批口令/范围与注意事项（**接 2.0 前先读**）
+- `examples/mcp-2025.example.json` — MCP host 配置示例（CST_HOME/CST_WORK_DIR/CST_PYTHON_EXE）
+- `tests/test_bridge.py` — 桥接器离线单元测试 7 个（`python -m unittest discover -s tests -v`）
+- `agents/openai.yaml` — Agent 元数据（skill loader 识别用）
+- `README-2.0.md` — 2.0 快速开始（新增执行层说明）
 - `data/` — 3 个材料库 JSON（基板/金属/介质）
 - `ATTRIBUTION.md` — 逐文件来源与改动、许可声明
 
 ## 回答要求
 - 用户没说 CST 版本时，先问版本再给 API 写法。
 - 拿不准的 API/命令标注"待本机确认"，不臆造。
-- 不承诺代跑仿真；给的是能本机执行的脚本/宏/排错方案。
+- 只有 MCP 实际返回成功且有结果证据时才报告已执行；否则明确标记为生成/待执行。
+
+## 2.0 MCP 执行层（CST 2025 优先）
+- 先读 `references/v2-execution.md`；以本机版本为准，绝不假定 2026 MCP 工具兼容 2025。
+- 本包 `mcp_server_2025.py` 是**本地安全桥接器**，提供环境检查、Touchstone 分析、参数脚本生成、经审批的单元胞建模脚本执行。
+- 通过 MCP `tools/list` 动态发现工具。启动 CST 的工具必须传入与本机环境变量一致的审批口令，并受执行超时和目录白名单约束。
+- 优先使用 `cst2025_health` → `cst2025_generate_job` / `cst2025_analyze_s1p` → 人工审批 → `cst2025_run_unitcell`。
+- 上游 GitHub MCP Server 作为**独立适配器**运行，先做 `tools/list` 与版本验收，不直接并发修改同一工程。
