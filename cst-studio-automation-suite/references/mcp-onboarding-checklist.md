@@ -30,6 +30,22 @@
 - MCP 工具在 2025 报方法不存在 → 优先改走"VBA 注入"类通用工具（execute_vba/add_to_history 等价物），绕开 2026 属性式封装。
 - 完全不通时的保底组合：本包 scripts（2025 实测）做主力，MCP 只做查询/展示类辅助。
 
+## 专项 · woson-L/cst-studio-suite-mcp（CST 2026 专用，来自 cst-automation 技能包并入）
+> 上游：https://github.com/woson-L/cst-studio-suite-mcp —— Windows stdio MCP server，**面向 CST Studio Suite 2026**。2025 用户仅登记（见 capability-router ⚪），2026 用户按此接入。
+
+**安装**：
+1. clone 仓库到本机（如 `C:\tools\cst-studio-suite-mcp`）。
+2. 仓库内运行 `python check_install.py --fix`，再跑 `python check_install.py` 确认。
+3. 在 MCP host 中：以**绝对路径** `mcp_server.py` 启动 Python，`cwd` 设为仓库根目录。
+4. 先 `initialize` → `tools/list` 枚举实际工具，再调用 `cst_health_check_tool`（若该工具存在）做健康检查。
+
+**纪律（硬约束，与 mcp-integration 一致）**：
+- **不假设所有广告的工具都存在**——每个版本工具集可能不同，参数一律以 `tools/list` 返回的真实 schema 为准，禁止凭仓库 README 里列的名字/参数直接调用。
+- **stdio 通道不混入人类可读日志**——MCP stdout 只走协议，任何 print/日志都算污染，会导致握手失败。
+- **远程 AI Agent 接入**：stdio 是本地进程，远程 AI 必须经"可信本地 bridge/worker"在装有 CST 的 Windows 机上转发，且要认证 + 用户批准；**禁止把 stdio 暴露为公开无鉴权端点**。
+- **`auto` 模式**：仅当握手 + 健康检查成功后优先用 MCP；否则自动回退生成 Python 脚本，**不假装已执行 CST**。
+- 本包对 2025 的兼容结论不变：woson-L 默认视为 2025 不兼容，先冒烟后可信。
+
 ## 验证记录模板（每次接入后填写）
 ```
 仓库 / commit 或版本：
